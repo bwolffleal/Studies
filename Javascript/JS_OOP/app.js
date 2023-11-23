@@ -102,3 +102,80 @@ const customer = new Customer('Peter', 'Parker', '1234', 'email@email.com')
 
 console.log(customer.message())
 console.log(customer)
+
+const profilePrototype = {
+    message: function() {
+        return `Hello, I am ${this.firstName} ${this.lastName}`
+    },
+    setNewLastName: function(newLastName) {
+        this.lastName = newLastName
+    }
+}
+
+const Peter6 = Object.create(profilePrototype)
+Peter6.firstName = 'Peter'
+Peter6.lastName = 'Parker'
+Peter6.age = 18
+Peter6.setNewLastName('Bright')
+console.log(Peter6.message())
+
+const alan = Object.create(profilePrototype, {
+    firstName: { value: 'Alan' },
+    lastName: { value: 'Smith' },
+    age: { value: 30 }
+})
+
+console.log(alan.message())
+
+class Person7 {
+    constructor(firstName, lastName, bday) {
+        this.firstName = firstName
+        this.lastName = lastName
+        this.bday = new Date(bday)
+    }
+    message() {
+        return `Hello, I am ${this.firstName} ${this.lastName}`
+    }
+    calculateAge = function() {
+        var diff_ms = Date.now() - this.bday.getTime();
+        var age_dt = new Date(diff_ms)
+
+        return Math.abs(age_dt.getUTCFullYear() - 1970); //getUTCFullYear() needs -1970 to calculate de age correctly
+    }
+}
+
+const alan2 = new Person7('Alan', 'Smith', '11/13/1980')
+console.log(alan2.calculateAge())
+
+class Person8 {
+    constructor(firstName, lastName, bday) {
+        this.firstName = firstName
+        this.lastName = lastName
+        this.bday = new Date(bday)
+    }
+    message() {
+        return `Hello this is ${this.firstName} ${this.lastName}`
+    }
+    calculateAge = function() {
+        var diff_ms = Date.now() - this.bday.getTime();
+        var age_dt = new Date(diff_ms)
+
+        return Math.abs(age_dt.getUTCFullYear() - 1970); //getUTCFullYear() needs -1970 to calculate de age correctly
+    }
+}
+
+class Customer2 extends Person8 {
+    constructor(firstName, lastName, phone, email) {
+        super(firstName,lastName)
+        this.phone = phone
+        this.email = email
+    }
+    static boughtItemsFee(item) {
+        return item * 100
+    }
+}
+
+const alan3 = new Customer2('Alan', 'Smith', '1234', 'email@email.com')
+console.log(alan3)
+console.log(alan3.message())
+console.log(Customer2.boughtItemsFee(3))
