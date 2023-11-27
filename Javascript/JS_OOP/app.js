@@ -179,3 +179,5 @@ const alan3 = new Customer2('Alan', 'Smith', '1234', 'email@email.com')
 console.log(alan3)
 console.log(alan3.message())
 console.log(Customer2.boughtItemsFee(3))
+
+
